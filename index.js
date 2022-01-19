@@ -6,7 +6,6 @@ app.get('/', (req, res) => res.send('Рабит'));
 app.listen(port, () => console.log(`Локальный адрес: http://localhost:${port}`));
 // require('events').EventEmitter.defaultMaxListeners = 0
 const Discord = require('discord.js-12');
-
 const client = new Discord.Client();
 const guild = client.guilds.cache.get("544902879534907392");
 client.on('ready', () => {
