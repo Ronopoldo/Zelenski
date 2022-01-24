@@ -10,8 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.3",
-    "discord.js-12": "^1.0.2",
-    "express": "^4.17.1"
+    "discord.js": "^13.6.0"
   }
 }

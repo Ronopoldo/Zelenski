@@ -1,16 +1,13 @@
-const express = require('express');
-const app = express();
-const port = 3000;
-
-app.get('/', (req, res) => res.send('Рабит'));
-app.listen(port, () => console.log(`Локальный адрес: http://localhost:${port}`));
+{ // server
+  new require('http').Server((req,res) => {
+    res.end(Buffer.from("Рабит", 'utf-8'), "utf-8")
+  }).listen(3000)
+}
 // require('events').EventEmitter.defaultMaxListeners = 0
-const Discord = require('discord.js-12');
+
+const Discord = require('discord.js');
 const client = new Discord.Client();
 const guild = client.guilds.cache.get("544902879534907392");
-client.on('ready', () => {
-  console.log(`Залогинен как ${client.user.tag}!`);
-});
 
 let active = false;
 
@@ -159,7 +156,7 @@ client.on('message', msg => {
           var Test1 = [`Триггер с дикой картой. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**', textToFind, '**__'];
           let Test2 = Test1.join('');
           console.log(Test2)
-          client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
+          //client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
 
 
           msg.channel.send(answers[i][1] + '.').catch(err => {})
@@ -205,7 +202,7 @@ client.on('message', msg => {
           let msgid = msg.id
           var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**', textToFind1, '**__'];
           let Test2 = Test1.join('');
-          client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
+          //client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
           console.log(Test2)
 
           msg.channel.send(answers1[i][1] + '.').catch(err => {})
@@ -232,7 +229,7 @@ client.on('message', msg => {
         let msgid = msg.id
         var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**пока**__'];
         let Test2 = Test1.join('');
-        client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
+        //client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
         msg.channel.send(`Проваливай, <@${msg.member.id}>! ТЫ ИДИОТИНА! Не возвращайся`).catch(err => {})
       }
     }
@@ -250,7 +247,7 @@ client.on('message', msg => {
         let msgid = msg.id
         var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**зеленый вор**__'];
         let Test2 = Test1.join('');
-        client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
+        //client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
         console.log(Test2)
 
         msg.channel.send(`everyone <@${msg.member.id}> ВООООР!`).catch(err => {})
@@ -270,7 +267,7 @@ client.on('message', msg => {
         let msgid = msg.id
         var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**. Сообщение (айди): ', msgid, '. Триггер: __**а**__'];
         let Test2 = Test1.join('');
-        client.channels.cache.get('852701746186027048').send(Test2 + '.');
+        //client.channels.cache.get('852701746186027048').send(Test2 + '.');
         console.log(Test2)
 
         msg.channel.send(`__**АУТИЗМ 999 ЛВЛА У <@${msg.member.id}>а! ИДИ НАХУЙ ЕБЛАН!**__`).catch(err => {});
@@ -284,21 +281,35 @@ client.on('message', msg => {
 });
 
 
-client.login(process.env.DISCORD_TOKEN);
-
 client.on('ready', () => {
+  console.log(`Залогинен как ${client.user.tag}!`);
   client.user.setActivity('КАК УБИВАТЦ ТУПЫХ РАНАПОЛЬД!!!', { type: 'WATCHING' });
 });
 
+client.login(process.env.DISCORD_TOKEN);
+
+
+/*
+          ЗОНА ПИТЬЯ ЧАЯ 
+  |                         |
+  |        __________       |
+  |_____    |      |   _____|
+  |    |    |      |   |    |
+  |    |    |      |   |    |
+*/
+
+/*
 
 
 
 
+\|/          (__)    
+     `\------(oo)
+       ||    (__)
+       ||w--||     \|/
+   \|/
 
 
 
-
-
-
-
-
+   
+*/
