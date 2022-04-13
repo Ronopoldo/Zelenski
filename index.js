@@ -162,31 +162,34 @@ let answers = [
 client.on('message', msg => {
   console.log(msg.content)
   try {
-    if (msg.member.roles.cache.has("828667331286794291")) {
-      let i = 0;
+    let guild = client.guilds.cache.get('544902879534907392');
+let member1 = guild.members.cache.get(msg.author.id);
+    if (member1.roles.cache.has("828667331286794291")) {
+      let i = 1;
       while ( i < answers.length) {
-        i = i + 1;
+        
         let textToFind = answers[i][0].toLowerCase();
-        // console.log(textToFind)
+        console.log(textToFind)
         if (msg.content.toLowerCase().includes(textToFind)) {
           // msg.reply('YEEE')
 
-          let chid = msg.channel.id
-          let usid = msg.member.id
-          let usdp = msg.member.displayName
-          let msgid = msg.id
-          var Test1 = [`Триггер с дикой картой. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**', textToFind, '**__'];
-          let Test2 = Test1.join('');
-          console.log(Test2)
-          client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
+          // let chid = msg.channel.id
+          // let usid = msg.member.id
+          // let usdp = msg.member.displayName
+          // let msgid = msg.id
+          // var Test1 = [`Триггер с дикой картой. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**', textToFind, '**__'];
+          // let Test2 = Test1.join('');
+          // console.log(Test2)
+          // client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
 
 
           msg.channel.send(answers[i][1]).catch(err => {})
           break;
         }
+        i = i + 1;
       }
     }
-  } catch (err) { console.log(err) }
+  } catch (err) { console.log(err + '<<<') }
 });
 
 
@@ -214,10 +217,12 @@ let answers1 = [
 // обработка входящих сообщений
 client.on('message', msg => {
   try {
-    if (msg.member.roles.cache.has("828667331286794291")) {
+    let guild = client.guilds.cache.get('544902879534907392');
+let member = guild.members.cache.get(msg.author.id);
+    if (member.roles.cache.has("828667331286794291")) {
       let i = 0;
       while ( i < answers1.length-1) {
-        i = i + 1;
+        
         let textToFind1 = answers1[i][0].toLowerCase();
         // console.log(answers1[i][1])
         if (msg.content.toLowerCase() == textToFind1) {
@@ -234,6 +239,7 @@ console.log('ГОЧА')
 
           break;
         }
+        i = i + 1;
       }
     }
   } catch (err) { msg.reply('АААААААААА Я СДОХ СПАСИТИИИ' + err) }
@@ -245,7 +251,9 @@ console.log('ГОЧА')
 
 client.on('message', msg => {
   try {
-    if (msg.member.roles.cache.has("828667331286794291")) {
+    let guild = client.guilds.cache.get('544902879534907392');
+let member = guild.members.cache.get(msg.author.id);
+    if (member.roles.cache.has("828667331286794291")) {
       if (msg.content.toLowerCase().includes("пока")) {
 
         let chid = msg.channel.id
