@@ -1,13 +1,30 @@
-{ // server
-  new require('http').Server((req,res) => {
-    res.end(Buffer.from("Рабит", 'utf-8'), "utf-8")
-  }).listen(3000)
-}
-// require('events').EventEmitter.defaultMaxListeners = 0
+const express = require('express');
+const app = express();
+const port = 3000;
 
+app.get('/', (req, res) => res.send('Рабит'));
+app.listen(port, () => console.log(`Локальный адрес: http://localhost:${port}`));
+// require('events').EventEmitter.defaultMaxListeners = 0
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const { Client, Intents, MessageActionRow, MessageButton } = require('discord.js');
+let client; {
+    client = new Discord.Client({
+        partials: ['MESSAGE', 'REACTION', 'CHANNEL'],
+        intents: [
+            "GUILDS",
+            "GUILD_MEMBERS",
+            "GUILD_VOICE_STATES",
+            "GUILD_PRESENCES",
+            "GUILD_MESSAGES",
+            "DIRECT_MESSAGES",
+        ],
+    })
+}
+
 const guild = client.guilds.cache.get("544902879534907392");
+client.on('ready', () => {
+  console.log(`Залогинен как ${client.user.tag}!`);
+});
 
 let active = false;
 
@@ -143,11 +160,16 @@ let answers = [
 
 // обработка входящих сообщений
 client.on('message', msg => {
+  console.log(msg.content)
   try {
     if (msg.member.roles.cache.has("828667331286794291")) {
-      for (let i = 0; i < answers.length; i++) {
+      let i = 0;
+      while ( i < answers.length) {
+        i = i + 1;
         let textToFind = answers[i][0].toLowerCase();
+        // console.log(textToFind)
         if (msg.content.toLowerCase().includes(textToFind)) {
+          // msg.reply('YEEE')
 
           let chid = msg.channel.id
           let usid = msg.member.id
@@ -156,15 +178,15 @@ client.on('message', msg => {
           var Test1 = [`Триггер с дикой картой. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**', textToFind, '**__'];
           let Test2 = Test1.join('');
           console.log(Test2)
-          //client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
+          client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
 
 
-          msg.channel.send(answers[i][1] + '.').catch(err => {})
+          msg.channel.send(answers[i][1]).catch(err => {})
           break;
         }
       }
     }
-  } catch (err) { msg.reply(err) }
+  } catch (err) { console.log(err) }
 });
 
 
@@ -193,25 +215,28 @@ let answers1 = [
 client.on('message', msg => {
   try {
     if (msg.member.roles.cache.has("828667331286794291")) {
-      for (let i = 0; i < answers1.length; i++) {
+      let i = 0;
+      while ( i < answers1.length-1) {
+        i = i + 1;
         let textToFind1 = answers1[i][0].toLowerCase();
-        if (msg.content.toLowerCase() === textToFind1) {
-          let chid = msg.channel.id
-          let usid = msg.member.id
-          let usdp = msg.member.displayName
-          let msgid = msg.id
-          var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**', textToFind1, '**__'];
-          let Test2 = Test1.join('');
-          //client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
-          console.log(Test2)
-
-          msg.channel.send(answers1[i][1] + '.').catch(err => {})
+        // console.log(answers1[i][1])
+        if (msg.content.toLowerCase() == textToFind1) {
+          // let chid = msg.channel.id
+          // let usid = msg.member.id
+          // let usdp = msg.member.displayName
+          // let msgid = msg.id
+          // var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**', textToFind1, '**__'];
+          // let Test2 = Test1.join('');
+          // client.channels.cache.get('852701746186027048').send(Test2).catch(err => {});
+          // console.log(Test2)
+console.log('ГОЧА')
+          msg.channel.send(answers1[i][1]).catch(err => { console.log(err + '<<<<')})
 
           break;
         }
       }
     }
-  } catch (err) { }
+  } catch (err) { msg.reply('АААААААААА Я СДОХ СПАСИТИИИ' + err) }
 });
 
 
@@ -229,7 +254,7 @@ client.on('message', msg => {
         let msgid = msg.id
         var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**пока**__'];
         let Test2 = Test1.join('');
-        //client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
+        client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
         msg.channel.send(`Проваливай, <@${msg.member.id}>! ТЫ ИДИОТИНА! Не возвращайся`).catch(err => {})
       }
     }
@@ -247,7 +272,7 @@ client.on('message', msg => {
         let msgid = msg.id
         var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**__. Сообщение (айди): ', msgid, '. Триггер: __**зеленый вор**__'];
         let Test2 = Test1.join('');
-        //client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
+        client.channels.cache.get('852701746186027048').send(Test2 + '.').catch(err => {});
         console.log(Test2)
 
         msg.channel.send(`everyone <@${msg.member.id}> ВООООР!`).catch(err => {})
@@ -267,7 +292,7 @@ client.on('message', msg => {
         let msgid = msg.id
         var Test1 = [`Триггер без дикой карты. Юзер: __**`, usdp, '**__ (', usid, '). Канал __**<#', chid, '>**. Сообщение (айди): ', msgid, '. Триггер: __**а**__'];
         let Test2 = Test1.join('');
-        //client.channels.cache.get('852701746186027048').send(Test2 + '.');
+        client.channels.cache.get('852701746186027048').send(Test2 + '.');
         console.log(Test2)
 
         msg.channel.send(`__**АУТИЗМ 999 ЛВЛА У <@${msg.member.id}>а! ИДИ НАХУЙ ЕБЛАН!**__`).catch(err => {});
@@ -281,35 +306,21 @@ client.on('message', msg => {
 });
 
 
+client.login(process.env.DISCORD_TOKEN);
+
 client.on('ready', () => {
-  console.log(`Залогинен как ${client.user.tag}!`);
   client.user.setActivity('КАК УБИВАТЦ ТУПЫХ РАНАПОЛЬД!!!', { type: 'WATCHING' });
 });
 
-client.login(process.env.DISCORD_TOKEN);
-
-
-/*
-          ЗОНА ПИТЬЯ ЧАЯ 
-  |                         |
-  |        __________       |
-  |_____    |      |   _____|
-  |    |    |      |   |    |
-  |    |    |      |   |    |
-*/
-
-/*
 
 
 
 
-\|/          (__)    
-     `\------(oo)
-       ||    (__)
-       ||w--||     \|/
-   \|/
 
 
 
-   
-*/
+
+
+
+
+
